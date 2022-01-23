@@ -17,14 +17,14 @@ namespace RestaurantSIGLO21.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Informacion del Restaurant";
 
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Menu()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Menu Page";
 
             return View();
         }
@@ -36,7 +36,28 @@ namespace RestaurantSIGLO21.Controllers
 
         public IActionResult Login()
         {
-            ViewData["Message"] = "Your Login page.";
+            ViewData["Message"] = "Your Login page";
+
+            return View();
+        }
+
+        public IActionResult Platos()
+        {
+            ViewData["Message"] = "Platos mas conocidos";
+
+            return View();
+        }
+
+        public IActionResult Team()
+        {
+            ViewData["Message"] = "Miembros del Equipo";
+
+            return View();
+        }
+
+        public IActionResult Reservation()
+        {
+            ViewData["Message"] = "Paginas de Reserva";
 
             return View();
         }
