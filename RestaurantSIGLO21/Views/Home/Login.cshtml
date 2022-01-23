@@ -75,7 +75,7 @@
                 </div>
                 <div class="group">
                     <!--Poner onlick para ejecutar-->
-                    <input type="submit" class="button" value="Registrarme">
+                    <input type="submit" class="button" value="Registrarme" onclick="Registro()" />
                 </div>
                 <div class="hr"></div>
                 <div class="foot-lnk">
@@ -86,42 +86,61 @@
     </div>
 </div>
 
-    <!-- External JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script src="~/vendor/bootstrap/popper.min.js"></script>
-    <script src="~/vendor/bootstrap/bootstrap.min.js"></script>
-    <script src="~/vendor/select2/select2.min.js "></script>
-    <script src="~/vendor/owlcarousel/owl.carousel.min.js"></script>
-    <script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js"></script>
-    <script src="~/vendor/stellar/jquery.stellar.js" type="text/javascript" charset="utf-8"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-    <!-- Main JS -->
-    <script src="~/js/app.min.js "></script>
-    
-    <script>
-        async function login() {
-            try {
-                const res = await fetch("http://localhost:8080/api/login", {
-                    method: "post",
-                    headers: {
-                        accept: "application/json",
-                        "content-type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        correo: document.getElementById("usuario").value,
-                        contrasena: document.getElementById("contrasena").value
-                    })
-                })
-                const data = await res.json()
-                console.log(data)
-                localStorage.setItem("token", data.token)
-                localStorage.setItem("nombre", data.nombre)
-                alert(`El usuario: ${data.nombre} se ha conectado excitadamente`)
-            }
-            catch (error) {
-                alert(error)
-            }
-           
+<!-- External JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="~/vendor/bootstrap/popper.min.js"></script>
+<script src="~/vendor/bootstrap/bootstrap.min.js"></script>
+<script src="~/vendor/select2/select2.min.js "></script>
+<script src="~/vendor/owlcarousel/owl.carousel.min.js"></script>
+<script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js"></script>
+<script src="~/vendor/stellar/jquery.stellar.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Main JS -->
+<script src="~/js/app.min.js "></script>
+
+<script>
+    function login() {
+
+        if (!document.getElementById("usuario").value) {
+            alert("El campo del usuario no puede estar vacio")
+            return;
         }
-    </script>
+        if (!document.getElementById("contrasena").value) {
+            alert("El campo de la contrasena no puede estar vacio")
+            return;
+        }
+        const login = "http://localhost:8080/api/login";
+
+        fetch(login, {
+            method: "POST",
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                correo: document.getElementById("usuario").value,
+                contrasena: document.getElementById("contrasena").value
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                // code here //
+                if (data.error) {
+                    alert("Contrasena y/o Correo mal ingresados"); /*displays error message*/
+                } else {
+                    localStorage.setItem('token', data.token)
+                    localStorage.setItem('nombre', data.nombre)
+                    window.open(
+                        "/"
+                    ); 
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+
+    }
+</script>
