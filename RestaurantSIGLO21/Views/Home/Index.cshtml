@@ -151,8 +151,11 @@
                         <span class="subheading">
                             Especialidades
                         </span>
-                        <h2>
+                        <h2 id="platoEspecial">
                             Platos Especiales
+                        </h2>
+                        <h2 id="precio">
+                            
                         </h2>
                     </div>
                     <div class="row mt-5">
@@ -660,5 +663,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Main JS -->
     <script src="~/js/app.min.js "></script>
+    <script> 
+        async function platos() {
+            const registro = "http://localhost:8080/api/platos";
+            fetch(platos, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json, text/plain, */*",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    descripcion: document.getElementById("platosEspeciales").value,
+                    idPlato: 1,
+                    precio: document.getElementById("precio").value
+
+                }),
+            })
+
+        }
+    </script>
 </body>
 </html>
