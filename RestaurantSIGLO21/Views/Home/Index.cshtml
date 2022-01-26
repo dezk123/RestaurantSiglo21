@@ -59,7 +59,7 @@
                     <div class="col-lg-6 hero-left">
                         <h1 class="display-4 mb-5">Mejores Platos Chilenos<br></h1>
                         <div class="mb-2">
-                            <a class="btn btn-primary btn-shadow btn-lg" href="menu.html" role="button">Explorar Menu</a>
+                            <a class="btn btn-primary btn-shadow btn-lg"  role="button" onclick="platos()">Explorar Menu</a>
                         </div>
                         <ul class="hero-info list-unstyled d-flex text-center mb-0">
                             <li class="border-right">
@@ -665,20 +665,20 @@
     <script src="~/js/app.min.js "></script>
     <script> 
         async function platos() {
-            const registro = "http://localhost:8080/api/platos";
+            const platos = "http://localhost:8080/api/platos";
             fetch(platos, {
                 method: "GET",
                 headers: {
-                    Accept: "application/json, text/plain, */*",
+                    Accept: "application/json",
                     "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    descripcion: document.getElementById("platosEspeciales").value,
-                    idPlato: 1,
-                    precio: document.getElementById("precio").value
-
-                }),
+                    //Authorization: localStorage.getItem("token")
+                }
             })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("hola:", data)
+                    
+                })
 
         }
     </script>

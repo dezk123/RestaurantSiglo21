@@ -50,6 +50,8 @@
                 <div class="group">
                     <!--Poner onlick para ejecutar-->
                     <input type="submit" class="button" value="Conectarme" onclick="login()" />
+                    <br />
+                    <input type="submit" class="button" value="Prueba" onclick="platos()" />
                 </div>
                 <div class="hr"></div>
                 <div class="foot-lnk">
@@ -154,6 +156,30 @@
     }
 </script>
 
+<script>
+    async function platos() {
+        const platos = "http://localhost:8080/api/platos";
+        fetch(platos, {
+            method: "GET",
+            headers: {
+                Accept: "*/*",
+            },
+            body: {
+                descripcion: document.getElementById("platosEspeciales"),
+                idPlato: 1,
+                precio: document.getElementById("precio")
+
+            },
+            console.log("hola:", platos);
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("hola:", data.body);
+
+            })
+
+    }
+</script>
 
 <script>
     async function register() {
@@ -191,7 +217,7 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                idUsuario: 9,
+                idUsuario: 16,
                 idTipoUsuario: "",
                 correo: document.getElementById("email").value,
                 contrasena: document.getElementById("pass").value,
@@ -205,9 +231,11 @@
             .then((data) => {
                 console.log(data.body);
                 // code here //
-                if (data.error) {
+                if (data) {
                     alert("Contrasena y/o Correo mal ingresados"); /*displays error message*/
+                    console.log("hola:", data)
                 } else {
+                    console.log("hola:", data)
                     window.open(
                         "/"
                     );
