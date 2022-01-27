@@ -255,10 +255,12 @@
                     .then((data) => {
                         data.map(x => {
                             console.log("prueba;", x)
-                            console.log("intento 1 : ", x.descripcion)
-                            contenido.innerHTML = `
+                            //console.log("intento 1 : ", x.descripcion)
+                            contenido.innerHTML += `
                             <p>Plato: ${x.descripcion}  </p>
+                            <p>Precio: ${x.precio} </p>
                             `
+                            
                         })
 
                     })
