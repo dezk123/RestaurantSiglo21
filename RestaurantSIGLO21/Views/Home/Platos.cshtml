@@ -61,7 +61,7 @@
         </div>
     </div>	<div id="canvas-overlay"></div>
     <div class="boxed-page">
-        
+
         <!-- Special Dishes Section -->
         <section id="gtco-special-dishes" class="bg-grey section-padding">
             <div class="container">
@@ -118,7 +118,26 @@
                     </div>
                 </div>
             </div>
+
+            <h1>Platos</h1>
+            <a class="btn btn-primary btn-shadow btn-lg" role="button" onclick="platos()">Mostrar Platos</a>
+            <hr />
+
+
+            <div class="container my-5 text-center">
+                <button class="btn btn-danger w-100" onclick="platos()"> Obtener Platos </button>
+                <div class="mt-5" id="contenido"></div>
+
+
+            </div>
+
+
         </section>
+
+
+
+
+
         <!-- End of Special Dishes Section -->
         <footer class="mastfoot pb-5 bg-white section-padding pb-0">
             <div class="inner container">
@@ -176,6 +195,8 @@
 
                 </div>
             </div>
+
+
         </footer>
     </div>
 
@@ -192,6 +213,69 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Main JS -->
     <script src="~/js/app.min.js "></script>
+
+    @*Funcion para listar*@
+
+
+    <script>
+
+        var contenido = document.querySelector('#contenido')
+            function traer() {
+            const platos = "http://localhost:8080/api/platos";
+            fetch(platos, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    //Authorization: localStorage.getItem("token")
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data.results['0'])
+                    contenido.innerHTML = `
+                        <p>Plato: ${data.results['0'].descripcion}  </p>
+                        `
+                })
+
+    </script>
+
+    <script>
+            async function platos() {
+                const platos = "http://localhost:8080/api/platos";
+                fetch(platos, {
+                    method: "GET",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        //Authorization: localStorage.getItem("token")
+                    }
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        data.map(x => {
+                            console.log("prueba;", x)
+                            console.log("intento 1 : ", x.descripcion)
+                            contenido.innerHTML = `
+                            <p>Plato: ${x.descripcion}  </p>
+                            `
+                        })
+
+                    })
+
+             //.then(res => res.json())
+             //       .then(data => {
+             //           console.log(data.results['0'])
+             //           contenido.innerHTML = `
+             //           <p>Plato: ${data.results['0'].descripcion}  </p>
+             //           `
+             //       })
+
+            }
+        </script>
+
+
+
 </body>
 </html>
 

@@ -1,10 +1,29 @@
-﻿function login() {
-    var user, pass;
+﻿const items = document.getElementById("items")
+const templateCard = document.getElementById("template-card").content
 
-    user = document.getElementById("usuario").value;
-    pass = document.getElementById("contrasena").value;
 
-    if (user == "Ricardo" && pass == "123") {
-        window.location = "reservation.html";
+document.addEventListener("DOMContentLoad", () => {
+    fetchData()
+})
+
+
+const fetchData = async () => {
+    try {
+        const res = await fetch("http://localhost:8080/api/platos")
+        const data = await res.json()
+        console.log(data)
+    } catch (error) {
+        console.log(error)
     }
+}
+
+const pintarCard = data => {
+    data.forEach(producto => {
+        templateCard.querySelector('h5').textContent = producto.descripcion
+
+        const clone = templateCard.cloneNode(true)
+        fragment.appendChild(clone)
+    })
+    items.appendChild(fragment)
+
 }

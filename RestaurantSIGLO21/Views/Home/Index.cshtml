@@ -663,27 +663,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Main JS -->
     <script src="~/js/app.min.js "></script>
-    <script> 
-        async function platos() {
-            const platos = "http://localhost:8080/api/platos";
-            fetch(platos, {
-                method: "GET",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    //Authorization: localStorage.getItem("token")
-                }
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    data.map(x => {
-                        console.log("prueba;", x)
-                        console.log("intento 1 : ", x.descripcion)
-                    })
-                    
-                })
-
-        }
-    </script>
+  
 </body>
 </html>
