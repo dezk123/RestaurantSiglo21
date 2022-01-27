@@ -676,7 +676,10 @@
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log("hola:", data)
+                    data.map(x => {
+                        console.log("prueba;", x)
+                        console.log("intento 1 : ", x.descripcion)
+                    })
                     
                 })
 
