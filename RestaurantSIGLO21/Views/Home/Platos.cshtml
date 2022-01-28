@@ -220,7 +220,7 @@
     <script>
 
         var contenido = document.querySelector('#contenido')
-            function traer() {
+        function traer() {
             const platos = "http://localhost:8080/api/platos";
             fetch(platos, {
                 method: "GET",
@@ -234,47 +234,45 @@
                 .then(data => {
                     console.log(data.results['0'])
                     contenido.innerHTML = `
-                        <p>Plato: ${data.results['0'].descripcion}  </p>
-                        `
+                            <p>Plato: ${data.results['0'].descripcion}  </p>
+                            `
                 })
 
     </script>
 
     <script>
-            async function platos() {
-                const platos = "http://localhost:8080/api/platos";
-                fetch(platos, {
-                    method: "GET",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                        //Authorization: localStorage.getItem("token")
-                    }
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        data.map(x => {
-                            console.log("prueba;", x)
-                            //console.log("intento 1 : ", x.descripcion)
-                            contenido.innerHTML += `
-                            <p>Plato: ${x.descripcion}  </p>
-                            <p>Precio: ${x.precio} </p>
-                            `
-                            
-                        })
-
+        async function platos() {
+            const platos = "http://localhost:8080/api/platos";
+            fetch(platos, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    //Authorization: localStorage.getItem("token")
+                }
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    data.map(x => {
+                        console.log("prueba;", x)
+                        //console.log("intento 1 : ", x.descripcion)
+                        contenido.innerHTML += `
+                            <table>
+                              <tr>
+                                <th>Plato: ${x.descripcion}</th>
+                                <hr>
+                                <th>Precio: ${x.precio} </th>
+                                <hr>
+                            </table>
+                         `
                     })
 
-             //.then(res => res.json())
-             //       .then(data => {
-             //           console.log(data.results['0'])
-             //           contenido.innerHTML = `
-             //           <p>Plato: ${data.results['0'].descripcion}  </p>
-             //           `
-             //       })
+                })
 
-            }
-        </script>
+  
+
+        }
+    </script>
 
 
 
