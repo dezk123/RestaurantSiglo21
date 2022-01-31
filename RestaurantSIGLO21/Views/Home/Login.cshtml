@@ -37,11 +37,11 @@
             <div class="sign-in-htm">
                 <div class="group">
                     <label for="user" class="label">Usuario</label>
-                    <input id="usuario" name="usuario" type="text" class="input">
+                    <input id="usuario" name="usuario" type="text" class="input" required>
                 </div>
                 <div class="group">
                     <label for="pass" class="label">Contraseña</label>
-                    <input id="contrasena" name="contrasena" type="password" class="input" data-type="password">
+                    <input id="contrasena" name="contrasena" type="password" class="input" data-type="password" required >
                 </div>
                 <div class="group">
                     <input id="check" type="checkbox" class="check" checked>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="group">
                     <!--Poner onlick para ejecutar-->
-                    <input type="submit" class="button" value="Conectarme" onclick="login()" />
+                    <input type="submit" class="button" value="Conectarme" onclick="login()"  />
                     <br />
                     <input type="submit" class="button" value="Prueba" onclick="platos()" />
                 </div>
@@ -64,35 +64,35 @@
             <div class="sign-up-htm">
                 <div class="group">
                     <label for="pass" class="label">Correo</label>
-                    <input id="email" type="text" class="input">
+                    <input id="email" type="text" class="input" required>
                 </div>
                 <div class="group">
                     <label for="pass" class="label">Contraseña</label>
-                    <input id="pass" type="password" class="input" data-type="password" />
+                    <input id="pass" type="password" class="input" data-type="password"  required/>
                 </div>
                 <div class="group">
                     <label for="user" class="label">Nombre</label>
-                    <input id="user" type="text" class="input">
+                    <input id="user" type="text" class="input" required>
                 </div>
                 <div class="group">
                     <label for="user" class="label">Nombre de Usuario</label>
-                    <input id="nombreUsuario" type="text" class="input">
+                    <input id="nombreUsuario" type="text" class="input" required>
                 </div>
                 <div class="group">
                     <label for="user" class="label">Apellido</label>
-                    <input id="apellido" type="text" class="input">
+                    <input id="apellido" type="text" class="input" required>
                 </div>
                 <div class="group">
                     <label for="user" class="label">Direccion</label>
-                    <input id="direccion" type="text" class="input">
+                    <input id="direccion" type="text" class="input" required >
                 </div>
                 <div class="group">
                     <label for="user" class="label">Run</label>
-                    <input id="run" type="text" class="input">
+                    <input id="run" type="text" class="input" required>
                 </div>
                 <div class="group">
                     <!--Poner onlick para ejecutar-->
-                    <input type="submit" class="button" value="Registrarme" onclick="register()" />
+                    <input type="submit" class="button" value="Registrarme" onclick="Registro()" />
                 </div>
                 <div class="hr"></div>
                 <div class="foot-lnk">
@@ -149,6 +149,7 @@
                 } else {
                     localStorage.setItem('token', data.token)
                     localStorage.setItem('nombre', data.nombre)
+                    localStorage.setItem('idUsuario', data.idUsuario)
                     window.open(
                         "/"
                     ); 
@@ -158,31 +159,6 @@
                 console.log(err);
             });
 
-
-    }
-</script>
-
-<script>
-    async function platos() {
-        const platos = "http://localhost:8080/api/platos";
-        fetch(platos, {
-            method: "GET",
-            headers: {
-                Accept: "*/*",
-            },
-            body: {
-                descripcion: document.getElementById("platosEspeciales"),
-                idPlato: 1,
-                precio: document.getElementById("precio")
-
-            },
-            console.log("hola:", platos);
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("hola:", data.body);
-
-            })
 
     }
 </script>
@@ -223,65 +199,68 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                idTipoUsuario: "",
                 correo: document.getElementById("email").value,
                 contrasena: document.getElementById("pass").value,
                 nombre: document.getElementById("user").value,
+                nombreUsuario: document.getElementById("nombreUsuario").value,
                 apellido: document.getElementById("apellido").value,
                 direccion: document.getElementById("direccion").value,
-                run: document.getElementById("run").value,
-                nombreUsuario: document.getElementById("nombreUsuario").value
+                run: document.getElementById("run").value
             }),
         })
+        localStorage.clear()
             .then((response) => response.json())
             .then((data) => {
                 console.log(data.body);
                 // code here //
                 if (data) {
-                    alert("Contrasena y/o Correo mal ingresados"); /*displays error message*/
+                    alert("Usuario Correctamente Registrado");
+                    window.open("/")
                     console.log("hola:", data)
                 } else {
                     console.log("hola:", data)
-                    window.open(
-                        "/"
-                    );
+                    alert("Problemas al Registrar el usuario");
                 }
             })
             .catch((err) => {
                 console.log(err);
             });
     }
-    //        const res = await fetch("http://localhost:8080/api/registro", {
-    //            method: "POST",
-    //            headers: {
-    //                accept: "application/json",
-    //                "content-type": "application/json",
-    //            },
-    //            body: JSON.stringify({
-    //                idUsuario: 6,
-    //                idTipoUsuario: "",
-    //                correo: document.getElementById("email").value,
-    //                contrasena: document.getElementById("pass").value,
-    //                nombre: document.getElementById("user").value,
-    //                apellido: document.getElementById("apellido").value,
-    //                direccion: document.getElementById("direccion").value,
-    //                run: document.getElementById("run").value
-    //            })
-    //        })
-    //        const data = await res.json()
-    //        console.log(data)
-    //        if (data.error) {
-    //            alert("tu mama es muy linda"); /*displays error message*/
-    //        } else {
-    //            window.open(
-    //                "/"
-    //            );
-    //        }
-            
-    //    }
-    //    catch (error) {
-    //        alert(error)
-    //    }
-
-    //}
+    
 </script>
+
+@*<script>
+    function Registro() {
+
+    (async () => {
+        const rawResponse = await fetch('http://localhost:8080/api/registro', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.parse(JSON.stringify({
+                idTipoUsuario: "",
+                correo: document.getElementById("email").value,
+                contrasena: document.getElementById("pass").value,
+                nombre: document.getElementById("user").value,
+                nombreUsuario: document.getElementById("nombreUsuario").value,
+                apellido: document.getElementById("apellido").value,
+                direccion: document.getElementById("direccion").value,
+                run: document.getElementById("run").value
+            })),
+        });
+        const content = await rawResponse.json();
+        if (content) {
+            alert("Usuario Correctamente Registrado");
+            window.open("/")
+            console.log("hola:", content)
+        } else {
+            console.log("hola:", content)
+            alert("Problemas al Registrar el usuario");
+        }
+
+        console.log(content);
+    });
+    }
+</script>*@

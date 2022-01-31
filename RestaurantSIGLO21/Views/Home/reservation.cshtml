@@ -52,10 +52,10 @@
 
     </div>	<div id="canvas-overlay"></div>
     <div class="boxed-page">
-      
+
         <!-- Reservation Section -->
         <section id="gtco-reservation" class="bg-fixed bg-white section-padding overlay" style="background-image: url(~/img/reservation-bg.jpg);">
-            
+
             <div class="container">
                 <div class="row">
                     <div class="col-lg-5">
@@ -114,16 +114,26 @@
                                     </div>
                                     <div class="col-md-12 text-center">
                                         <button class="btn btn-primary btn-shadow btn-lg" type="submit" name="submit">Reservar</button>
+
                                     </div>
                                 </div>
                             </form>
+                            <div class="container my-5 text-center">
+                                <button class="btn btn-danger w-100" onclick="reserva()"> Obtener Reservas </button>
+
+
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+          
         </section>
-        <!-- End of Reservation Section -->	
+        <!-- End of Reservation Section -->
         <footer class="mastfoot pb-5 bg-white section-padding pb-0">
+
             <div class="inner container">
                 <div class="row">
                     <div class="col-lg-4">
@@ -159,19 +169,17 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="footer-widget pl-lg-5 pl-0">
-                            <h4>Ingresa tu Correo</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            <form id="newsletter">
-                                <div class="form-group">
-                                    <input type="email" class="form-control" id="emailNewsletter" aria-describedby="emailNewsletter" placeholder="Ingresar Correo">
-                                </div>
-                                <button type="submit" class="btn btn-primary w-100">Enviar</button>
+                            <h4>Reserva</h4>
+                            
+                            <form id="contenido">
+                               
                             </form>
                         </div>
                     </div>
                     <div class="col-md-12 d-flex align-items-center">
                         <p class="mx-auto text-center mb-0">Copyright 2022 developed by nosotros <a href="https://github.com/matiaszntc" target="text_blank">GitHub</a></p>
                     </div>
+
                 </div>
             </div>
         </footer>
@@ -189,5 +197,81 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Main JS -->
     <script src="~/js/app.min.js "></script>
+
+    <script>
+        // para llamar la fecha correctamente
+
+        new Date(document.getElementById("INSERTA LA WEA DE FECHA ACA CTM").value)
+
+
+    </script>
+
+    <script>
+        var contenido = document.querySelector('#contenido')
+        async function reserva() {
+            const reserva = `http://localhost:8080/api/reservas/${localStorage.getItem("idUsuario")}`;
+            fetch(reserva, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.getItem("token")
+                }
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    data.map(x => {
+                        console.log("prueba;", x)
+                        //console.log("intento 1 : ", x.descripcion)
+                        contenido.innerHTML += `
+                                            <table>
+                                              <tr>
+                                                <th>Estado de Reserva: ${x.estado}</th>
+                                                <th>ID Reserva: ${x.idReserva}</th>
+                                                <th>Nombre Usuario: ${x.Nombre}</th>
+                                               
+                                             </tr>
+                                            </table>
+                                 `
+                    })
+
+                })
+        }
+
+    </script>
+
+
+    <script>
+        async function platos() {
+            const platos = "http://localhost:8080/api/platos";
+            fetch(platos, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    //Authorization: localStorage.getItem("token")
+                }
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    data.map(x => {
+                        console.log("prueba;", x)
+                        //console.log("intento 1 : ", x.descripcion)
+                        contenido.innerHTML += `
+                                <table>
+                                  <tr>
+                                    <th>Plato: ${x.descripcion}</th>
+                                    <hr>
+                                    <th>Precio: ${x.precio} </th>
+                                    <hr>
+                                </table>
+                             `
+                    })
+
+                })
+        }
+    </script>
+
+
 </body>
 </html>
